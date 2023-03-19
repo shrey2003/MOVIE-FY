@@ -19,9 +19,18 @@ app = Flask(__name__)
 def home():
     return render_template("index.html")
 
-@app.route('/recommend')
+@app.route('/recommend',methods=['GET','POST'])
 def recommend():
-    return render_template("recommend.html")
+    if request.method =="POST":
+        try:
+            if request.form:
+                movies_name=request.form['movies']
+                #print(movies_name)
+        except Exception as e:
+            error={'error':e}
+            return render_template("prediction.html")
+    else:
+        return render_template("recommend.html")
 
 
      
