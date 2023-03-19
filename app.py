@@ -23,7 +23,9 @@ def recommend(movie):
     for i in movies_list:
         movie_id=movies.iloc[i[0]].movie_id
         recommended_movieposter.append(poster(movie_id))
+        recommended_moviename.append(movies.iloc[i[0]].title)
 
+    return recommended_moviename,recommended_movieposter
 
 app = Flask(__name__)
 
@@ -33,14 +35,17 @@ def home():
 
 @app.route('/recommend',methods=['GET','POST'])
 def recommend():
+    movie_list=movies['title'].values
     if request.method =="POST":
         try:
             if request.form:
                 movies_name=request.form['movies']
                 #print(movies_name)
+                recommended_moviename,recommended_movieposter=recommend(movies_name)
+                return render_template("recommend.html",movies_name=recommended_moviename,poster=recommended_movieposter,movie_list=movie_list)
         except Exception as e:
             error={'error':e}
-            return render_template("prediction.html")
+            return render_template("recommend.html")
     else:
         return render_template("recommend.html")
 
