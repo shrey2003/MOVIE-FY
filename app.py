@@ -19,4 +19,9 @@ app = Flask(__name__)
 def home():
     return render_template("index.html")
 
+@app.route('/recommend')
+def recommend():
+    return render_template("recommend.html")
+
+
      
