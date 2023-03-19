@@ -15,10 +15,15 @@ def poster(movie_id):
     return full_path
 
 def recommend(movie):
-    movie_index=movies[new_movies['title']==movie].index[0]
-    distances=cos_sim[movie_index]
+    movie_index=movies[movies['title']==movie].index[0]
+    distances=similar[movie_index]
     movies_list=sorted(list(enumerate(distances)),reverse=True,key=lambda x:x[1])[1:6]
+    recommended_moviename=[]
+    recommended_movieposter=[]
     for i in movies_list:
+        movie_id=movies.iloc[i[0]].movie_id
+        recommended_movieposter.append(poster(movie_id))
+
 
 app = Flask(__name__)
 
