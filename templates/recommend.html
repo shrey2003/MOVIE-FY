@@ -85,6 +85,7 @@
               </div>
               <div class="flex w-full justify-center items-end">
                 <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4 md:w-full text-left">
+                  <p class="text-primary"><b>{{error}}</b></p>
                 <form action="/recommendation" method="POST">
                     <select class="form-select" id="movies" name="movies" aria-label="Default select example">
                     {% for j in movie_list %}
@@ -100,6 +101,7 @@
             </div>
           </div>
         </div>
+        {% if status ==True %}
         <div class="container px-5 py-24 mx-auto">
             <div class="flex flex-wrap w-full mb-20">
               <div class=" mb-6 lg:mb-0">
@@ -141,8 +143,10 @@
                 </div>
               </div>
             </div>
-          </div>      
+          </div> 
+          {% endif %}     
      </section>
+    
 
      <footer class="text-gray-600 body-font bg-gray-900">
         <div class="container px-5 py-4 mx-auto flex items-center sm:flex-row flex-col">

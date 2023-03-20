@@ -11,7 +11,7 @@ from patsy import dmatrices
 movies=compress_pickle.load(open('movies.pkl','rb'))
 similar=compress_pickle.load(open('similarity.pkl','rb'))
 def poster(movie_id):
-    url="https://api.themoviedb.org/3/movie/{}?api_key=906b44d502c9c4a91034067e114671a3",format(movie_id)
+    url="https://api.themoviedb.org/3/movie/{}?api_key=906b44d502c9c4a91034067e114671a3".format(movie_id)
     data=requests.get(url)
     data=data.json()
     poster_path=data['poster_path']
@@ -40,18 +40,20 @@ def home():
 @app.route('/recommendation',methods=['GET','POST'])
 def recommendation():
     movie_list=movies['title'].values
+    status=False
     if request.method =="POST":
         try:
             if request.form:
                 movies_name=request.form['movies']
                 print(movies_name)
                 recommended_moviename,recommended_movieposter=recommended(movies_name)
-                return render_template("recommend.html",movies_name=recommended_moviename,poster=recommended_movieposter,movie_list=movie_list)
+                status=True
+                return render_template("recommend.html",movies_name=recommended_moviename,poster=recommended_movieposter,movie_list=movie_list,status=status)
         except Exception as e:
             error={'error':e}
-            return render_template("recommend.html",error=error,movie_list=movie_list)
+            return render_template("recommend.html",error=error,movie_list=movie_list,status=status)
     else:
-        return render_template("recommend.html",movie_list=movie_list)
+        return render_template("recommend.html",movie_list=movie_list,status=status)
 
 
 
