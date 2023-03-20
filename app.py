@@ -29,7 +29,7 @@ def recommended(movie):
         recommended_movieposter.append(poster(movie_id))
         recommended_moviename.append(movies.iloc[i[0]].title)
 
-        return recommended_moviename,recommended_movieposter
+    return recommended_moviename,recommended_movieposter
 
 app = Flask(__name__)
 
