@@ -85,10 +85,10 @@
               </div>
               <div class="flex w-full justify-center items-end">
                 <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4 md:w-full text-left">
-                <form action="/recommend" method="POST">
+                <form action="/recommendation" method="POST">
                     <select class="form-select" id="movies" name="movies" aria-label="Default select example">
                     {% for j in movie_list %}
-                     <option value="{{j}}">MENU</option>
+                     <option value="{{j}}">{{j}}</option>
                      {% endfor %}   
                     </select><br>
                 
@@ -96,7 +96,7 @@
             </form>
             </div>
             <!--<p class="text-sm mt-2 text-gray-500 mb-8 w-full">Neutra shabby chic ramps, viral fixie.</p>-->
-              </div>
+            </div>
             </div>
           </div>
         </div>
