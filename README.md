@@ -8,6 +8,14 @@ MOVIE-FY is a web application that recommends movies based on user preferences. 
 https://github.com/user-attachments/assets/214f1070-5b47-45f4-8375-cd8b4ecb9eb6
 
 
+## AI Methodology
+
+MOVIE-FY leverages a Content-Based Filtering technique to recommend movies. This method uses the following approach:
+
+- **Data Preprocessing**: The movie data is cleaned and preprocessed, focusing on important features like genres, cast, directors, and keywords.
+- **Vectorization**: The textual data (like genres and keywords) is converted into numerical vectors using techniques like TF-IDF (Term Frequency-Inverse Document Frequency).
+- **Cosine Similarity**: The similarity between movies is calculated using the cosine similarity metric, which helps in finding movies that are most similar to a given movie.
+- **Recommendation**: Based on the similarity scores, a list of top N movies similar to the selected movie is generated and presented to the user.
 
 
 ## Project Structure
@@ -58,7 +66,7 @@ MOVIE-FY/
    Open your web browser and go to http://127.0.0.1:5000/.
 
 ## Usage
-
+- **AI-Powered Recommendations**: Utilizes Content-Based Filtering and Cosine Similarity for providing personalized movie recommendations.
 - **Homepage**: The homepage provides a starting point for the user to explore the application.
 - **Recommendation Page**: Users can select a movie and get recommendations based on their preferences.
 - **Movie Page**: Detailed information about the selected movie, including related recommendations.
@@ -71,7 +79,7 @@ MOVIE-FY/
 - `templates/`: This directory contains all the HTML files that define the structure and content of the website pages.
 
 ## Features
-
+- Utilizes Content-Based Filtering and Cosine Similarity for providing personalized movie recommendations
 - Responsive design using Tailwind CSS.
 - Movie recommendations based on user input.
 - A loader animation to enhance user experience during navigation.
@@ -81,7 +89,7 @@ MOVIE-FY/
 
 1. Fork the repository.
 2. Create a new branch (`git checkout -b feature-branch`).
-3. Make your changes and commit them (`git commit -am 'Add new feature'`).
+3. Make your changes and commit them (`git commit -a 'Add new feature'`).
 4. Push to the branch (`git push origin feature-branch`).
 5. Create a new Pull Request.
 
