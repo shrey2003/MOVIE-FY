@@ -51,7 +51,7 @@
 
     </div>
   </header>
-  </section>
+ 
   <section class="text-gray-600 body-font bg-[url('/static/background.jpg')] mt-0 py-36" id="movie">
     <div class="container mx-auto flex flex-col px-5 py-24 justify-center items-center">
       <!--<img class="lg:w-2/4 md:w-3/4 w-9 mb-10 object-cover object-center rounded" alt="hero" src="/static/movie_2.jpg">-->
@@ -71,14 +71,12 @@
           <!--<p class="text-primary"><b>{{error}}</b></p>-->
           <form action="/recommendation" method="POST" onsubmit="return handleFormSubmit()">
             <select class="form-select" id="movies" name="movies" aria-label="Default select example">
-              {% for j in movie_list %}
-              <option value="{{j}}">{{j}}</option>
-              {% endfor %}
+                {% for j in movie_list %}
+                <option value="{{ j }}" {% if selected_movie == j %}selected{% endif %}>{{ j }}</option>
+                {% endfor %}
             </select><br>
-            <button
-              class="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded text-lg"
-              type="submit">Let's Go</button>
-          </form>
+            <button class="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded text-lg" type="submit">Let's Go</button>
+        </form>
 
         </div>
         <!--<p class="text-sm mt-2 text-gray-500 mb-8 w-full">Neutra shabby chic ramps, viral fixie.</p>-->
@@ -93,22 +91,24 @@
           <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-orange-400 ">RECOMMENDED MOVIES</h1>
           <div class="h-1 w-20 bg-indigo-500 rounded"></div>
         </div>
-        </div>
+      </div>
 
-        <div class="flex flex-wrap -m-4">
+      <div class="flex flex-wrap -m-4">
 
-          <div class="xl:w-1/4 md:w-1/2 p-4">
+        <div class="xl:w-1/4 md:w-1/2 p-4">
 
-            <div class="xl:w-8/10 md:w-8/10 p-4">
-              <div class="bg-gray-100 p-6 rounded-lg" onclick="openModal('{{ movieid[0] }}')">
-                <img class="h-200 rounded w-full object-cover object-center mb-6" src="{{ poster[0]}}" alt="content">
-                <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">Movie Name</h3>
-                <h2 class="text-lg text-gray-900 font-medium title-font mb-4">{{ movie_name[0]}}</h2>
-                <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waistcoat. Distillery
-                  hexagon disrupt edison bulbche.</p>
-              </div>
+          <div class="xl:w-8/10 md:w-8/10 p-4">
+            <div class="bg-gray-100 p-6 rounded-lg" onclick="openModal('{{ movieid[0] }}')">
+              <img class="h-200 rounded w-full object-cover object-center mb-6" src="{{ poster[0]}}" alt="content">
+              <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">Movie Name</h3>
+              <h2 class="text-lg text-gray-900 font-medium title-font mb-4">{{ movie_name[0]}}</h2>
+              <button
+                class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-6 border border-blue-500 hover:border-transparent rounded">
+                Read More
+              </button>
             </div>
-        </div> 
+          </div>
+        </div>
 
         <div class="xl:w-1/4 md:w-1/2 p-4">
 
@@ -117,13 +117,15 @@
               <img class="h-200 rounded w-full object-cover object-center mb-6" src="{{ poster[1]}}" alt="content">
               <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">Movie Name</h3>
               <h2 class="text-lg text-gray-900 font-medium title-font mb-4">{{ movie_name[1]}}</h2>
-              <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waistcoat. Distillery
-                hexagon disrupt edison bulbche.</p>
+              <button
+                class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-6 border border-blue-500 hover:border-transparent rounded">
+                Read More
+              </button>
             </div>
 
           </div>
           <!-- </div>-->
-          </div>
+        </div>
 
         <div class="xl:w-1/4 md:w-1/2 p-4">
 
@@ -132,12 +134,14 @@
               <img class="h-200 rounded w-full object-cover object-center mb-6" src="{{ poster[2]}}" alt="content">
               <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">Movie Name</h3>
               <h2 class="text-lg text-gray-900 font-medium title-font mb-4">{{ movie_name[2]}}</h2>
-              <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waistcoat. Distillery
-                hexagon disrupt edison bulbche.</p>
+              <button
+                class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-6 border border-blue-500 hover:border-transparent rounded">
+                Read More
+              </button>
             </div>
 
           </div>
-          </div>
+        </div>
         <!-- </div> -->
 
         <div class="xl:w-1/4 md:w-1/2 p-4">
@@ -147,17 +151,26 @@
               <img class="h-200 rounded w-full object-cover object-center mb-6" src="{{ poster[3]}}" alt="content">
               <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">Movie Name</h3>
               <h2 class="text-lg text-gray-900 font-medium title-font mb-4">{{ movie_name[3]}}</h2>
-              <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waistcoat. Distillery
-                hexagon disrupt edison bulbche.</p>
+              <!-- Using utilities: -->
+              
+              <button  onclick="openMovieDetailsPage('{{ movieid[3] }}')"
+                class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-6 border border-blue-500 hover:border-transparent rounded" >
+                Read More 
+              </button  >
+           
+
+
+              <!-- <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waistcoat. Distillery
+                hexagon disrupt edison bulbche.</p> -->
             </div>
           </div>
 
         </div>
-      
+
         {% endif %}
   </section>
 
-  <section>
+  <!-- <section>
     <div id="movieModal" class="modal">
       <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
@@ -169,7 +182,35 @@
         <ul id="reviewsList"></ul>
       </div>
     </div>
-  </section>
+  </section> -->
+
+  <!-- <div id="movieModal" class="modal fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
+      <div class="modal-content bg-white rounded shadow-lg p-8 m-4 max-w-xs md:max-w-md">
+        <span class="close float-right cursor-pointer" onclick="closeModal()">×</span>
+        <h2 id="movieTitle" class="text-xl leading-tight mb-2">Movie Title</h2>
+        <p id="movieDescription" class="text-gray-700 text-base">Movie Description</p>
+        <h3 class="text-lg leading-tight mt-8 mb-2">Cast:</h3>
+        <ul id="castList" class="list-disc list-inside text-gray-700 text-base"></ul>
+        <h3 class="text-lg leading-tight mt-8 mb-2">Top 5 Reviews:</h3>
+        <ul id="reviewsList" class="list-disc list-inside text-gray-700 text-base"></ul>
+      </div>
+    </div> -->
+
+  <!-- <div id="movieModal" class="modal fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
+    <div class="modal-content bg-white rounded shadow-lg p-8 m-4 max-w-xs md:max-w-md">
+      <span class="close float-right cursor-pointer text-red-500" onclick="closeModal()">×</span>
+      <h2 id="movieTitle" class="text-xl leading-tight mb-2">Movie Title</h2>
+      <p id="movieDescription" class="text-gray-700 text-base">Movie Description</p>
+      <h3 class="text-lg leading-tight mt-8 mb-2">Cast:</h3>
+      <ul id="castList" class="list-disc list-inside text-gray-700 text-base"></ul>
+      <h3 class="text-lg leading-tight mt-8 mb-2">Top 5 Reviews:</h3>
+      <ul id="reviewsList" class="list-disc list-inside text-gray-700 text-base"></ul>
+    </div>
+  </div> -->
+
+
+
+
 
 
   <footer class="text-gray-600 body-font bg-gray-900">
@@ -218,64 +259,19 @@
   </footer>
 </body>
 <script>
-  // Function to open the modal and fetch movie details on click
-  function openModal(movieIdOrTitle) {
-    const modal = document.getElementById('movieModal');
-
-    // Make a POST request to your Flask backend to get movie details
-    fetch('/movie_details', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: `movie_id_or_title=${encodeURIComponent(movieIdOrTitle)}`,
-    })
-      .then(response => response.json())
-      .then(data => {
-        // Update the modal content with movie details
-        document.getElementById('movieTitle').innerText = data.title;
-        document.getElementById('movieDescription').innerText = data.description;
-
-        // Update the cast list
-        const castList = document.getElementById('castList');
-        castList.innerHTML = '';
-        data.cast.forEach(actor => {
-          const li = document.createElement('li');
-          li.innerText = actor;
-          castList.appendChild(li);
-        });
-
-        // Update the reviews list
-        const reviewsList = document.getElementById('reviewsList');
-        reviewsList.innerHTML = '';
-        data.reviews.forEach(review => {
-          const li = document.createElement('li');
-          li.innerText = review;
-          reviewsList.appendChild(li);
-        });
-
-        // Display the modal
-        modal.style.display = 'block';
-      })
-      .catch(error => {
-        console.error('Error fetching movie details:', error);
-        // You can show an error message here if something goes wrong
-      });
-  }
-
-  // Function to close the modal
-  function closeModal() {
-    const modal = document.getElementById('movieModal');
-    modal.style.display = 'none';
-  }
+   function openMovieDetailsPage(movieid) {
+        // You can use window.location.href to navigate to the movie details page
+        window.location.href = '/movie_page/' + movieid;
+    }
 
   function handleFormSubmit() {
     const selectedMovie = document.getElementById('movies').value;
     // Check if a movie is selected before submitting the form
     if (selectedMovie === '') {
-      alert('Please select a movie.');
+      //alert('Please select a movie.');
       return false; // Prevent form submission
     }
+
     return true; // Allow form submission
   }
 </script>
