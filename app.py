@@ -1,16 +1,12 @@
-from flask import Flask, request, render_template,request,jsonify
+from flask import Flask, request, render_template, jsonify
 import compress_pickle
-from compress_pickle import dump, load
 import requests
 import pandas as pd
 from flask_caching import Cache
-import requests
 from time import sleep
 
-
-
-movies=compress_pickle.load(open('movies.pkl','rb'))
-similar=compress_pickle.load(open('similarity.pkl','rb'))
+movies = compress_pickle.load(open('movies.pkl', 'rb'))
+similar = compress_pickle.load(open('similarity.pkl', 'rb'))
 
 def make_request_with_retries(url, params=None, retries=5, backoff=2, timeout=10):
     for i in range(retries):
@@ -36,21 +32,19 @@ def poster(movie_id):
         full_path = "URL_TO_DEFAULT_IMAGE"
     return full_path
 
-
 def recommended(movie):
-    movie_index=movies[movies['title']==movie].index[0]
-    distances=similar[movie_index]
-    movies_list=sorted(list(enumerate(distances)),reverse=True,key=lambda x:x[1])[1:6]
-    recommended_moviename=[]
-    recommended_movieposter=[]
-    recommended_movieid=[]
+    movie_index = movies[movies['title'] == movie].index[0]
+    distances = similar[movie_index]
+    movies_list = sorted(list(enumerate(distances)), reverse=True, key=lambda x: x[1])[1:6]
+    recommended_moviename = []
+    recommended_movieposter = []
+    recommended_movieid = []
     for i in movies_list:
-        movie_id=movies.iloc[i[0]].movie_id
+        movie_id = movies.iloc[i[0]].movie_id
         recommended_movieid.append(movie_id)
         recommended_movieposter.append(poster(movie_id))
         recommended_moviename.append(movies.iloc[i[0]].title)
-
-    return recommended_moviename,recommended_movieposter,recommended_movieid
+    return recommended_moviename, recommended_movieposter, recommended_movieid
 
 app = Flask(__name__)
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
@@ -58,33 +52,6 @@ cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 @app.route('/')
 def home():
     return render_template("index.html")
-import aiohttp
-import asyncio
-
-async def fetch(url, params=None):
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url, params=params) as response:
-            return await response.json()
-
-async def fetch_movie_details(movie_id_or_title):
-    api_key = '906b44d502c9c4a91034067e114671a3'
-    base_url = 'https://api.themoviedb.org/3/'
-    
-    movie_url = f'{base_url}movie/{movie_id_or_title}'
-    movie_data = await fetch(movie_url, params={'api_key': api_key})
-
-    cast_url = f'{base_url}movie/{movie_id_or_title}/credits'
-    cast_data = await fetch(cast_url, params={'api_key': api_key})
-
-    reviews_url = f'{base_url}movie/{movie_id_or_title}/reviews'
-    reviews_data = await fetch(reviews_url, params={'api_key': api_key})
-
-    return {
-        'movie_data': movie_data,
-        'cast_data': cast_data,
-        'reviews_data': reviews_data
-    }
-
 
 @app.route('/recommendation', methods=['GET', 'POST'])
 def recommendation():
@@ -107,7 +74,6 @@ def recommendation():
             return render_template("recommend.html", error=error, movie_list=movie_list, status=status, selected_movie=selected_movie)
     else:
         return render_template("recommend.html", movie_list=movie_list, status=status, selected_movie=selected_movie)
-
 
 @cache.cached(timeout=300, key_prefix='movie_details')
 @app.route('/movie_details', methods=['POST'])
@@ -147,10 +113,9 @@ def movie_details():
         return jsonify(movie_details)
     except Exception as e:
         print(f"Failed to fetch movie details: {e}")
-        return jsonify({'error': 'Failed to fetch movie details.'}), 500
+        return render_template('error_page.html', error_message="Failed to fetch movie details."), 500
 
-
-@cache.cached(timeout=300, key_prefix='movie_page/<int:movieid>')
+@cache.cached(timeout=300, key_prefix='movie_page_<int:movieid>')
 @app.route('/movie_page/<int:movieid>', methods=['GET'])
 def movie_details_page(movieid):
     api_key = '906b44d502c9c4a91034067e114671a3'
@@ -200,9 +165,6 @@ def movie_details_page(movieid):
         print(f"Error fetching movie details: {e}")
         return render_template('error_page.html', error_message="An error occurred while fetching movie details."), 500
 
-    
-
 if __name__ == '__main__':
     app.debug = True
     app.run()
-     
