@@ -2,6 +2,14 @@
 
 MOVIE-FY is a web application that recommends movies based on user preferences. The application uses a responsive design and provides users with the ability to search for movies and receive personalized recommendations.
 
+
+
+
+https://github.com/user-attachments/assets/214f1070-5b47-45f4-8375-cd8b4ecb9eb6
+
+
+
+
 ## Project Structure
 
 ```plaintext
