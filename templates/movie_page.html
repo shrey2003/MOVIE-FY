@@ -8,37 +8,8 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <style>
-      .loader {
-          border: 8px solid #f3f3f3;
-          border-radius: 50%;
-          border-top: 8px solid #3498db;
-          width: 60px;
-          height: 60px;
-          -webkit-animation: spin 2s linear infinite;
-          animation: spin 2s linear infinite;
-          margin: auto;
-          display: block;
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-      }
-
-      @-webkit-keyframes spin {
-          0% { -webkit-transform: rotate(0deg); }
-          100% { -webkit-transform: rotate(360deg); }
-      }
-
-      @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-      }
-
-      #content {
-          display: none;
-      }
-  </style>
+    <script src="static/js/movie_page.js"></script>
+    <link rel="stylesheet" href="static/css/movie_page.css">
 </head>
 
 <body class="bg-gray-100 p-8 bg-[url('/static/background-3.jpg')]">
@@ -90,12 +61,7 @@
       </a>
       
     </div>
-    <script>
-      window.onload = function () {
-          document.getElementById("loader").style.display = "none";
-          document.getElementById("content").style.display = "block";
-      }
-  </script>
+
 </body>
 
 </html>

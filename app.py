@@ -5,8 +5,8 @@ import pandas as pd
 from flask_caching import Cache
 from time import sleep
 
-movies = compress_pickle.load(open('movies.pkl', 'rb'))
-similar = compress_pickle.load(open('similarity.pkl', 'rb'))
+movies = compress_pickle.load(open('models/movies.pkl', 'rb'))
+similar = compress_pickle.load(open('models/similarity.pkl', 'rb'))
 
 def make_request_with_retries(url, params=None, retries=5, backoff=2, timeout=10):
     for i in range(retries):
